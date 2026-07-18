@@ -1,0 +1,265 @@
+students = []
+
+def add_student():
+
+    student_id = input("Enter Student ID: ").strip()
+
+    # Check duplicate ID
+    for student in students:
+        if student["id"] == student_id:
+            print("\nStudent ID already exists.\n")
+            return
+
+    student_name = input("Enter Student Name: ").strip()
+
+    while True:
+        try:
+            student_grade = float(input("Enter Student Grade: "))
+
+            if 0 <= student_grade <= 100:
+                break
+            else:
+                print("Grade must be between 0 and 100.")
+
+        except ValueError:
+            print("Invalid Grade!")
+
+    students.append({
+        "id": student_id,
+        "name": student_name,
+        "grade": student_grade
+    })
+
+    print("\nStudent Added Successfully.\n")
+
+def show_all_students():
+
+    if len(students) == 0:
+        print("\nNo Students Found.\n")
+        return
+
+    print("\n========== Students List ==========")
+
+    for student in students:
+
+        print("----------------------------------")
+        print(f"Student ID    : {student['id']}")
+        print(f"Student Name  : {student['name']}")
+        print(f"Student Grade : {student['grade']}")
+        print("----------------------------------")
+
+def search_student():
+
+    student_id = input("Enter Student ID: ")
+
+    for student in students:
+
+        if student["id"] == student_id:
+
+            print("\nStudent Found")
+            print("---------------------------")
+            print(f"ID    : {student['id']}")
+            print(f"Name  : {student['name']}")
+            print(f"Grade : {student['grade']}")
+            return
+
+    print("\nStudent Not Found.\n")
+
+def update_grade():
+
+    student_id = input("Enter Student ID: ")
+
+    for student in students:
+
+        if student["id"] == student_id:
+
+            while True:
+
+                try:
+                    new_grade = float(input("Enter New Grade: "))
+
+                    if 0 <= new_grade <= 100:
+                        student["grade"] = new_grade
+                        print("\nGrade Updated Successfully.\n")
+                        return
+
+                    else:
+                        print("Grade must be between 0 and 100.")
+
+                except ValueError:
+                    print("Invalid Grade!")
+
+    print("\nStudent Not Found.\n")
+
+def delete_student():
+
+    student_id = input("Enter Student ID: ")
+
+    for student in students:
+
+        if student["id"] == student_id:
+
+            students.remove(student)
+
+            print("\nStudent Deleted Successfully.\n")
+            return
+
+    print("\nStudent Not Found.\n")
+
+def calculate_average():
+
+    if len(students) == 0:
+        print("\nNo Students Found.\n")
+        return
+
+    total = 0
+
+    for student in students:
+        total += student["grade"]
+
+    average = total / len(students)
+
+    print(f"\nAverage Grade = {average:.2f}\n")
+
+def best_student():
+
+    if len(students) == 0:
+        print("\nNo Students Found.\n")
+        return
+
+    best = students[0]
+
+    for student in students:
+
+        if student["grade"] > best["grade"]:
+            best = student
+
+    print("\n========== Best Student ==========")
+    print(f"ID    : {best['id']}")
+    print(f"Name  : {best['name']}")
+    print(f"Grade : {best['grade']}")
+
+def worst_student():
+
+    if len(students) == 0:
+        print("\nNo Students Found.\n")
+        return
+
+    worst = students[0]
+
+    for student in students:
+
+        if student["grade"] < worst["grade"]:
+            worst = student
+
+    print("\n========== Worst Student ==========")
+    print(f"ID    : {worst['id']}")
+    print(f"Name  : {worst['name']}")
+    print(f"Grade : {worst['grade']}")
+
+def total_students():
+
+    print(f"\nTotal Students = {len(students)}\n")
+
+def passed_students():
+
+    found = False
+
+    print("\n========== Passed Students ==========")
+
+    for student in students:
+
+        if student["grade"] >= 60:
+
+            found = True
+
+            print("----------------------------------")
+            print(f"ID    : {student['id']}")
+            print(f"Name  : {student['name']}")
+
+print(f"Grade : {student['grade']}")
+
+    if not found:
+        print("No Passed Students.")
+
+def failed_students():
+
+    found = False
+
+    print("\n========== Failed Students ==========")
+
+    for student in students:
+
+        if student["grade"] < 60:
+
+            found = True
+
+            print("----------------------------------")
+            print(f"ID    : {student['id']}")
+            print(f"Name  : {student['name']}")
+            print(f"Grade : {student['grade']}")
+
+    if not found:
+        print("No Failed Students.")
+
+while True:
+
+    print("\n===================================")
+    print("      STUDENT MANAGEMENT SYSTEM")
+    print("===================================")
+
+    print("1. Add Student")
+    print("2. Show All Students")
+    print("3. Search Student by ID")
+    print("4. Update Student Grade")
+    print("5. Delete Student")
+    print("6. Calculate Average Grade")
+    print("7. Show Best Student")
+    print("8. Show Worst Student")
+    print("9. Show Total Number of Students")
+    print("10. Show Passed Students")
+    print("11. Show Failed Students")
+    print("12. Exit")
+
+    choice = input("\nEnter Your Choice: ")
+
+    if choice == "1":
+        add_student()
+
+    elif choice == "2":
+        show_all_students()
+
+    elif choice == "3":
+        search_student()
+
+    elif choice == "4":
+        update_grade()
+
+    elif choice == "5":
+        delete_student()
+
+    elif choice == "6":
+        calculate_average()
+
+    elif choice == "7":
+        best_student()
+
+    elif choice == "8":
+        worst_student()
+
+    elif choice == "9":
+        total_students()
+
+    elif choice == "10":
+        passed_students()
+
+    elif choice == "11":
+        failed_students()
+
+    elif choice == "12":
+        print("\nThank You For Using The Program.")
+        print("Program Closed Successfully.")
+        break
+
+    else:
+        print("\nInvalid Choice! Please Try Again.\n")
